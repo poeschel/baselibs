@@ -11,6 +11,16 @@
 # SPDX-License-Identifier: Apache-2.0
 # *******************************************************************************
 load("@score-baselibs//bazel:unit_tests.bzl", "cc_unit_test_suites_for_host_and_qnx")
+load("@rules_rust//rust:defs.bzl", "rust_library")
+
+rust_library(
+    name = "mw_log",
+    srcs = glob(["src/**/*.rs"]),
+    deps = [
+        "@crate_index//:log",
+        ":log"
+    ],
+)
 
 COMPILER_WARNING_FEATURES = [
     "treat_warnings_as_errors",
