@@ -11,15 +11,19 @@
 # SPDX-License-Identifier: Apache-2.0
 # *******************************************************************************
 load("@score-baselibs//bazel:unit_tests.bzl", "cc_unit_test_suites_for_host_and_qnx")
-load("@rules_rust//rust:defs.bzl", "rust_library")
+load("@rules_rust//rust:defs.bzl", "rust_library", "rust_binary")
+load("@crates//:defs.bzl", "aliases", "all_crate_deps")
 
 rust_library(
-    name = "mw_log",
+    name = "libmw_log",
     srcs = glob(["src/**/*.rs"]),
+    crate_name = "mw_log",
+    visibility = ["//visibility:public"],
     deps = [
-        "@crate_index//:log",
-        ":log"
-    ],
+        ":log",
+    ] + all_crate_deps(
+        normal = True,
+    ),
 )
 
 COMPILER_WARNING_FEATURES = [
