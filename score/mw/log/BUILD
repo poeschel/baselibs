@@ -21,9 +21,42 @@ rust_library(
     visibility = ["//visibility:public"],
     deps = [
         ":log",
+        ":libmw_log_ffi",
     ] + all_crate_deps(
         normal = True,
     ),
+)
+
+rust_binary(
+    name = "log_demo",
+    srcs = ["examples/log_demo.rs"],
+    visibility = ["//visibility:public"],
+    deps = [
+        ":frontend",
+        ":libmw_log",
+        ":libmw_log_ffi",
+        ":log",
+        ":recorder_interface",
+    ] + all_crate_deps(
+        normal = True,
+    ),
+)
+
+cc_library(
+    name = "libmw_log_ffi",
+    srcs = ["src/mw_log_ffi.cpp"],
+    tags = ["FFI"],
+    visibility = ["//visibility:public"],
+    deps = [
+        ":log",
+    ] + select({
+        "@score-baselibs//score/mw/log/detail/flags:config_KUse_Stub_Implementation_Only": [
+            "@score-baselibs//score/mw/log/detail:recorder_factory_stub",
+        ],
+        "//conditions:default": [
+            "@score-baselibs//score/mw/log/detail:recorder_factory",
+        ],
+    }),
 )
 
 COMPILER_WARNING_FEATURES = [
