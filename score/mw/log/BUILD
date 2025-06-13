@@ -13,6 +13,7 @@
 load("@score-baselibs//bazel:unit_tests.bzl", "cc_unit_test_suites_for_host_and_qnx")
 load("@rules_rust//rust:defs.bzl", "rust_library", "rust_binary")
 load("@crates//:defs.bzl", "aliases", "all_crate_deps")
+load("@rules_rust//cargo:defs.bzl", "cargo_build_script")
 
 rust_library(
     name = "libmw_log",
@@ -22,21 +23,6 @@ rust_library(
     deps = [
         ":log",
         ":libmw_log_ffi",
-    ] + all_crate_deps(
-        normal = True,
-    ),
-)
-
-rust_binary(
-    name = "log_demo",
-    srcs = ["examples/log_demo.rs"],
-    visibility = ["//visibility:public"],
-    deps = [
-        ":frontend",
-        ":libmw_log",
-        ":libmw_log_ffi",
-        ":log",
-        ":recorder_interface",
     ] + all_crate_deps(
         normal = True,
     ),
@@ -57,6 +43,31 @@ cc_library(
             "@score-baselibs//score/mw/log/detail:recorder_factory",
         ],
     }),
+)
+
+cargo_build_script(
+    name = "build_script",
+    srcs = ["build.rs"],
+    aliases = aliases(),
+    deps = all_crate_deps(
+        build = True,
+    ),
+    data = glob([
+          "bazel-bin/**",
+    ]),
+)
+
+rust_binary(
+    name = "log_demo",
+    srcs = ["examples/log_demo.rs"],
+    visibility = ["//visibility:public"],
+    deps = [
+        ":libmw_log",
+        ":build_script",
+        "@score-baselibs//score/json:json_serializer",
+    ] + all_crate_deps(
+        normal = True,
+    ),
 )
 
 COMPILER_WARNING_FEATURES = [
