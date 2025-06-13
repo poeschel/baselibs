@@ -10,12 +10,24 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  ********************************************************************************/
-use log::{Log, Metadata, Record};
+use log::{Level, Log, Metadata, Record};
 
- struct MwLogger;
+use std::ffi::c_char;
 
- impl Log for MwLogger {
-        fn enabled(&self, metadata: &Metadata) -> bool {
+unsafe extern "C" {
+     fn mw_log_info(message: *const c_char);
+     fn mw_log_warn(message: *const c_char);
+     fn mw_log_error(message: *const c_char);
+     fn mw_log_debug(message: *const c_char);
+    // fn mw_log_fatal(message: *const c_char);
+     fn mw_log_verbose(message: *const c_char);
+ }
+
+#[repr(C)]
+pub struct MwLogger;
+
+impl Log for MwLogger {
+        fn enabled(&self, _metadata: &Metadata) -> bool {
             // Enable all log levels
             true
         }
@@ -24,11 +36,11 @@ use log::{Log, Metadata, Record};
             let message = record.args().to_string();
             match record.level() {
                 Level::Error => unsafe { mw_log_error(message.as_ptr() as *const _) },
-                Level::Warn => unsafe { mw_log_warning(message.as_ptr() as *const _) },
+                Level::Warn => unsafe { mw_log_warn(message.as_ptr() as *const _) },
                 Level::Info => unsafe { mw_log_info(message.as_ptr() as *const _) },
-                Level::Fatal => unsafe { mw_log_fatal(message.as_ptr() as *const _) },
+                // Level::Fatal => unsafe { mw_log_fatal(message.as_ptr() as *const _) },
                 Level::Debug => unsafe { mw_log_debug(message.as_ptr() as *const _) },
-                Level::Trace => unsafe { mw_log_trace(message.as_ptr() as *const _) },
+                Level::Trace => unsafe { mw_log_verbose(message.as_ptr() as *const _) },
             }
         }
     

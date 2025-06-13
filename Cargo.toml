@@ -1,0 +1,12 @@
+[workspace]
+resolver = "2"
+members=[
+    "score/mw/log",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+
+[workspace.dependencies]
+log = "0.4"

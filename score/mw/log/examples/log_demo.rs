@@ -11,11 +11,14 @@
  * SPDX-License-Identifier: Apache-2.0
  ********************************************************************************/
 
- extern "C" {
-     fn mw_log_info(message: *const c_char);
-     fn mw_log_warning(message: *const c_char);
-     fn mw_log_error(message: *const c_char);
-     fn mw_log_debug(message: *const c_char);
-     fn mw_log_fatal(message: *const c_char);
-     fn mw_log_trace(message: *const c_char);
- }
+use log::{Record, Log, Level};
+use mw_log::MwLogger;
+
+fn main() {
+    let logger = MwLogger;
+    let record = Record::builder()
+                .args(format_args!("Hello!"))
+                .level(Level::Error)
+                .build();
+    logger.log(&record);
+}
