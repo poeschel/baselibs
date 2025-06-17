@@ -10,12 +10,13 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  ********************************************************************************/
+ use core::ffi::c_char;
 
  extern "C" {
-     fn mw_log_info(message: *const c_char);
-     fn mw_log_warning(message: *const c_char);
-     fn mw_log_error(message: *const c_char);
-     fn mw_log_debug(message: *const c_char);
-     fn mw_log_fatal(message: *const c_char);
-     fn mw_log_trace(message: *const c_char);
+     pub(crate) fn mw_log_info(message: *const c_char);
+     pub(crate) fn mw_log_warning(message: *const c_char);
+     pub(crate) fn mw_log_error(message: *const c_char);
+     pub(crate) fn mw_log_debug(message: *const c_char);
+     pub(crate) fn mw_log_fatal(message: *const c_char);
+     pub(crate) fn mw_log_trace(message: *const c_char);
  }

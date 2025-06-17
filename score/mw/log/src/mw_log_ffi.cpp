@@ -13,28 +13,27 @@
 #include "mw/log/logging.h"
 
 extern "C" {
-    void mw_log_info(const char* message) {
-        mw::LogInfo() << message;
-    }
-
-    void mw_log_warning(const char* message) {
-        mw::LogWarning() << message;
-    }
-
-    void mw_log_error(const char* message) {
-        mw::LogError() << message;
+    void mw_log_trace(const char* message) {
+        score::mw::log::LogVerbose() << message;
     }
 
     void mw_log_debug(const char* message) {
-        mw::LogDebug() << message;
+        score::mw::log::LogDebug() << message;
+    }
+
+    void mw_log_info(const char* message) {
+        score::mw::log::LogInfo() << message;
+    }
+
+    void mw_log_warning(const char* message) {
+        score::mw::log::LogWarn() << message;
+    }
+
+    void mw_log_error(const char* message) {
+        score::mw::log::LogError() << message;
     }
 
     void mw_log_fatal(const char* message) {
-        mw::LogFatal() << message;
+        score::mw::log::LogFatal() << message;
     }
-
-    void mw_log_trace(const char* message) {
-        mw::LogTrace() << message;
-    }
-   
 }

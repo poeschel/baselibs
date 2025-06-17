@@ -1,0 +1,13 @@
+[package]
+name = "mw_log"
+version.workspace = true
+edition.workspace = true
+links = "logging_identifier"
+
+[dependencies]
+log.workspace = true
+mw_log_detail = { path = "detail" }
+
+[build-dependencies]
+cc.workspace = true
+
