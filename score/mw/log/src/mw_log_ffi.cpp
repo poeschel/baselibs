@@ -10,30 +10,42 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  ********************************************************************************/
-#include "mw/log/logging.h"
+#include "score/mw/log/logging.h"
+#include "score/mw/log/configuration/configuration.h"
+
+namespace score
+{
+namespace mw
+{
+namespace log
+{
 
 extern "C" {
-    void mw_log_trace(const char* message) {
-        score::mw::log::LogVerbose() << message;
-    }
-
-    void mw_log_debug(const char* message) {
-        score::mw::log::LogDebug() << message;
-    }
-
-    void mw_log_info(const char* message) {
-        score::mw::log::LogInfo() << message;
-    }
-
-    void mw_log_warning(const char* message) {
-        score::mw::log::LogWarn() << message;
+    void mw_log_fatal(const char* message) {
+        LogFatal() << message;
     }
 
     void mw_log_error(const char* message) {
-        score::mw::log::LogError() << message;
+        LogError() << message;
     }
 
-    void mw_log_fatal(const char* message) {
-        score::mw::log::LogFatal() << message;
+    void mw_log_warn(const char* message) {
+        LogWarn() << message;
+    }
+
+    void mw_log_info(const char* message) {
+        LogInfo() << message;
+    }
+
+    void mw_log_debug(const char* message) {
+        LogDebug() << message;
+    }
+
+    void mw_log_verbose(const char* message) {
+        LogVerbose() << message;
     }
 }
+
+}  // namespace log
+}  // namespace mw
+}  // namespace score

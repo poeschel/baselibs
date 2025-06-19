@@ -13,10 +13,10 @@
  use core::ffi::c_char;
 
  extern "C" {
-     pub(crate) fn mw_log_info(message: *const c_char);
-     pub(crate) fn mw_log_warning(message: *const c_char);
-     pub(crate) fn mw_log_error(message: *const c_char);
-     pub(crate) fn mw_log_debug(message: *const c_char);
      pub(crate) fn mw_log_fatal(message: *const c_char);
-     pub(crate) fn mw_log_trace(message: *const c_char);
+     pub(crate) fn mw_log_error(message: *const c_char);
+     pub(crate) fn mw_log_warn(message: *const c_char);
+     pub(crate) fn mw_log_info(message: *const c_char);
+     pub(crate) fn mw_log_debug(message: *const c_char);
+     pub(crate) fn mw_log_verbose(message: *const c_char);
  }

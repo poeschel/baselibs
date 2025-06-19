@@ -1,9 +1,7 @@
 [workspace]
 resolver = "2"
 members=[
-    "score/language/futurecpp",
     "score/mw/log",
-    "score/mw/log/detail",
 ]
 
 [workspace.package]
