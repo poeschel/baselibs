@@ -19,4 +19,11 @@
      pub(crate) fn mw_log_info(message: *const c_char);
      pub(crate) fn mw_log_debug(message: *const c_char);
      pub(crate) fn mw_log_verbose(message: *const c_char);
+
+     pub(crate) fn mw_log_fatal_additional(info: *const c_char, message: *const c_char);
+     pub(crate) fn mw_log_error_additional(info: *const c_char, message: *const c_char);
+     pub(crate) fn mw_log_warn_additional(info: *const c_char, message: *const c_char);
+     pub(crate) fn mw_log_info_additional(info: *const c_char, message: *const c_char);
+     pub(crate) fn mw_log_debug_additional(info: *const c_char, message: *const c_char);
+     pub(crate) fn mw_log_verbose_additional(info: *const c_char, message: *const c_char);
  }
